@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Happy Lunar New Year</title>
+    <meta name="description" content="Wishing mom the best of luck this zodiac year." />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+</head>
+
+<body>
+<main class="wrap">
+    <header class="hero" role="banner">
+        <h1>Happy Lunar New Year 🧧</h1>
+        <p class="wish" id="wishText">
+            Wishing my <span id="familyName">[my family]</span> the best of luck this year of <span id="zodiacYear">[zodiac]</span>.
+        </p>
+    </header>
+
+    <!-- Full-screen layer where photos fly (not clipped) -->
+    <div class="sky" id="launcher" aria-live="polite"></div>
+
+    <button
+            class="pouchButton"
+            id="pouchButton"
+            type="button"
+            aria-label="Click the red pouch to launch a family photo"
+    >
+        <svg class="pouch" viewBox="0 0 240 260" aria-hidden="true">
+            ...
+        </svg>
+        <div class="hint">Click the pouch</div>
+    </button>
+    <footer class="foot">
+        <small>Made with ❤️ for mom.</small>
+    </footer>
+</main>
+
+<script src="./assets/js/main.js" defer></script>
+</body>
+</html>
