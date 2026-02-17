@@ -21,12 +21,9 @@ const launcher = document.getElementById("launcher");
 // Where should photos burst from? We'll compute from the pouch button position.
 function getBurstOrigin() {
     const btnRect = pouchButton.getBoundingClientRect();
-    const stageRect = launcher.getBoundingClientRect();
-
-    // origin near the pouch opening
-    const originX = (btnRect.left + btnRect.right) / 2 - stageRect.left;
-    const originY = (btnRect.top + btnRect.top + 90) / 2 - stageRect.top; // slightly below top of button
-
+    // origin near the top third of the pouch (mouth area)
+    const originX = btnRect.left + btnRect.width / 2;
+    const originY = btnRect.top + btnRect.height * 0.35;
     return { x: originX, y: originY };
 }
 

@@ -121,7 +121,7 @@ h1 {
 
 /* Flying photo cards */
 .photo {
-    position: absolute;
+    position: fixed;
     width: clamp(120px, 18vw, 190px);
     aspect-ratio: 4 / 5;
     border-radius: 16px;
@@ -219,7 +219,7 @@ body {
 .pouch {
     width: min(240px, 60vw);
     height: auto;
-    color: var(--red);
+    display: block;
     filter: drop-shadow(0 14px 22px rgba(0,0,0,0.45));
     transition: transform 120ms ease;
 }
@@ -260,3 +260,4 @@ body {
     object-fit: cover;
     display: block;
 }
+
