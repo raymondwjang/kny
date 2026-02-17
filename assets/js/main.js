@@ -4,10 +4,10 @@ const FAMILY = "엄마❤️";
 
 // List your family photos here (add/remove as needed):
 const PHOTOS = [
-    "./assets/img/family-01.jpg",
-    "./assets/img/family-02.jpg",
-    "./assets/img/family-03.jpg",
-    "./assets/img/family-04.jpg",
+    "./assets/img/fireplace.jpg",
+    "./assets/img/bday.jpg",
+    "./assets/img/concert.jpg",
+    "./assets/img/bow_me.png",
 ];
 
 const wishZodiac = document.getElementById("zodiacYear");
@@ -28,12 +28,15 @@ function getBurstOrigin() {
 }
 
 let photoIndex = 0;
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function pickPhoto() {
     if (PHOTOS.length === 0) return null;
-    const src = PHOTOS[photoIndex % PHOTOS.length];
-    photoIndex += 1;
-    return src;
+    return PHOTOS[getRandomInt(0, PHOTOS.length - 1)];
 }
 
 function rand(min, max) {
@@ -52,7 +55,7 @@ function launchSparkles(count = 10) {
         launcher.appendChild(s);
 
         const angle = rand(0, Math.PI * 2);
-        const distance = rand(40, 200);
+        const distance = rand(120, 200);
 
         const dx = Math.cos(angle) * distance;
         const dy = Math.sin(angle) * distance;
