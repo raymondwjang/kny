@@ -40,6 +40,43 @@ function rand(min, max) {
     return Math.random() * (max - min) + min;
 }
 
+function launchSparkles(count = 10) {
+    const { x, y } = getBurstOrigin();
+
+    for (let i = 0; i < count; i++) {
+        const s = document.createElement("div");
+        s.className = "sparkle";
+        s.style.left = `${x}px`;
+        s.style.top = `${y}px`;
+
+        launcher.appendChild(s);
+
+        const angle = rand(0, Math.PI * 2);
+        const distance = rand(40, 200);
+
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+
+        const scale = rand(0.6, 1.4);
+
+        const anim = s.animate(
+            [
+                { transform: "translate(-50%, -50%) scale(0.2)", opacity: 0 },
+                { transform: `translate(calc(-50% + ${dx * 0.6}px), calc(-50% + ${dy * 0.6}px)) scale(${scale})`, opacity: 1, offset: 0.4 },
+                { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.2)`, opacity: 0 }
+            ],
+            {
+                duration: rand(500, 900),
+                easing: "ease-out",
+                fill: "forwards",
+            }
+        );
+
+        anim.onfinish = () => s.remove();
+    }
+}
+
+
 function launchPhoto() {
     const src = pickPhoto();
     if (!src) return;
@@ -60,7 +97,7 @@ function launchPhoto() {
     launcher.appendChild(card);
 
     // Animation parameters:
-    const angle = rand(-Math.PI * 0.75, -Math.PI * 0.25); // upwards arc
+    const angle = rand(-Math.PI * 1, -Math.PI * -1); // upwards arc
     const speed = rand(520, 900); // px/s-ish
     const spin = rand(-16, 16);   // degrees end rotation
     const drift = rand(-120, 120);
@@ -92,10 +129,10 @@ function launchPhoto() {
 
     // Keep the card where it landed; then slowly fade older ones away.
     anim.onfinish = () => {
-        card.style.left = `${settleX}px`;
-        card.style.top = `${settleY}px`;
-        card.style.opacity = "1";
-        card.style.transform = `translate(-50%, -50%) rotate(${endRot}deg)`;
+        // card.style.left = `${settleX}px`;
+        // card.style.top = `${settleY}px`;
+        // card.style.opacity = "1";
+        // card.style.transform = `translate(-50%, -50%) rotate(${endRot}deg)`;
 
         // Optional: remove after a while to avoid clutter
         setTimeout(() => {
@@ -111,7 +148,14 @@ function launchPhoto() {
 // Click = one photo; shift-click = burst
 pouchButton.addEventListener("click", (e) => {
     const burst = e.shiftKey ? 6 : 1;
+
+    // ✨ sparkles immediately
+    launchSparkles(e.shiftKey ? 24 : 12);
+
     for (let i = 0; i < burst; i++) {
-        setTimeout(launchPhoto, i * 90);
+        setTimeout(() => {
+            launchPhoto();
+            launchSparkles(6); // tiny trailing sparkles per photo
+        }, i * 90);
     }
 });
